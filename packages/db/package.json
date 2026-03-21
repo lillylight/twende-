@@ -1,0 +1,22 @@
+{
+  "name": "@zedpulse/db",
+  "version": "1.0.0",
+  "description": "Database migrations and utilities",
+  "main": "dist/index.js",
+  "scripts": {
+    "migrate": "node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "migrate:create": "node-pg-migrate create",
+    "seed": "tsx src/seed.ts"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "node-pg-migrate": "^7.0.2",
+    "dotenv": "^16.4.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.16",
+    "@types/pg": "^8.11.0",
+    "tsx": "^4.7.1"
+  }
+}

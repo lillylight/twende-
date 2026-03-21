@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #e6f5f0;
+  --color-primary-100: #b3e0d3;
+  --color-primary-200: #80ccb6;
+  --color-primary-300: #4db799;
+  --color-primary-400: #26a37d;
+  --color-primary-500: #0f6e56;
+  --color-primary-600: #0d5f4b;
+  --color-primary-700: #0a4d3d;
+  --color-primary-800: #073b2f;
+  --color-primary-900: #042920;
+
+  --color-accent-50: #fef6e6;
+  --color-accent-100: #fce5b3;
+  --color-accent-200: #fad480;
+  --color-accent-300: #f7c34d;
+  --color-accent-400: #f5b226;
+  --color-accent-500: #ef9f27;
+  --color-accent-600: #d98d1f;
+  --color-accent-700: #b37419;
+  --color-accent-800: #8c5b13;
+  --color-accent-900: #66420d;
+
+  --color-danger-50: #fce8e8;
+  --color-danger-100: #f7bfbf;
+  --color-danger-200: #f19595;
+  --color-danger-300: #ec6c6b;
+  --color-danger-400: #e74e4d;
+  --color-danger-500: #e24b4a;
+  --color-danger-600: #c93e3d;
+  --color-danger-700: #a63232;
+  --color-danger-800: #832727;
+  --color-danger-900: #601c1c;
+
+  --color-dark: #1a1a1a;
+  --color-dark-100: #2d2d2d;
+  --color-dark-200: #404040;
+  --color-dark-300: #525252;
+  --color-dark-400: #666666;
+
+  --color-light: #f8f9fa;
+  --color-light-100: #f1f3f5;
+  --color-light-200: #e9ecef;
+  --color-light-300: #dee2e6;
+  --color-light-400: #ced4da;
+
+  --font-sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  min-height: 100dvh;
+}
+
+::selection {
+  background-color: var(--color-primary-200);
+  color: var(--color-primary-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+img,
+video,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-primary-500);
+  text-decoration: none;
+  transition: color 0.15s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-primary-700);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-light-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-light-400);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-dark-400);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out forwards;
+  }
+
+  .animate-pulse-dot {
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin 1.5s linear infinite;
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .glass-dark {
+    background: rgba(26, 26, 26, 0.8);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
