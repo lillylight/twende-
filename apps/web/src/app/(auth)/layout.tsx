@@ -14,7 +14,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </div>
       <div className="w-full max-w-md">{children}</div>
       <p className="mt-8 text-center text-xs text-gray-400">
-        &copy; {new Date().getFullYear()} ZedPulse. Safe travel across Zambia.
+        &copy; {new Date().getFullYear()} Twende. Safe travel across Zambia.
       </p>
     </div>
   );

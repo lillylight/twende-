@@ -7,10 +7,14 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const from = searchParams.get('from');
     const to = searchParams.get('to');
+    const routeId = searchParams.get('routeId');
     const date = searchParams.get('date');
     const page = Math.max(1, parseInt(searchParams.get('page') ?? '1', 10));
-    const pageSize = Math.min(50, Math.max(1, parseInt(searchParams.get('pageSize') ?? '20', 10)));
-    const skip = (page - 1) * pageSize;
+    const limit = Math.min(
+      50,
+      Math.max(1, parseInt(searchParams.get('limit') ?? searchParams.get('limit') ?? '20', 10))
+    );
+    const skip = (page - 1) * limit;
 
     const where: Record<string, unknown> = {
       status: 'SCHEDULED',
@@ -18,7 +22,9 @@ export async function GET(request: NextRequest) {
       departureTime: { gte: new Date() },
     };
 
-    if (from || to) {
+    if (routeId) {
+      where.routeId = routeId;
+    } else if (from || to) {
       where.route = {};
       if (from) {
         (where.route as Record<string, unknown>).fromCity = { contains: from, mode: 'insensitive' };
@@ -68,12 +74,12 @@ export async function GET(request: NextRequest) {
         },
         orderBy: { departureTime: 'asc' },
         skip,
-        take: pageSize,
+        take: limit,
       }),
       prisma.journey.count({ where }),
     ]);
 
-    const totalPages = Math.ceil(totalItems / pageSize);
+    const totalPages = Math.ceil(totalItems / limit);
 
     return NextResponse.json(
       {
@@ -98,7 +104,7 @@ export async function GET(request: NextRequest) {
         })),
         pagination: {
           page,
-          pageSize,
+          limit,
           totalItems,
           totalPages,
           hasNextPage: page < totalPages,

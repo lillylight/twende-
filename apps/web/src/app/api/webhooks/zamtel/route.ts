@@ -1,10 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { addSMSJob } from '@/lib/queues/sms.queue';
+import crypto from 'crypto';
+
+function verifyWebhookSignature(request: NextRequest, body: string): boolean {
+  const secret = process.env.ZAMTEL_WEBHOOK_SECRET;
+  if (!secret) {
+    console.error('[Webhook:Zamtel] ZAMTEL_WEBHOOK_SECRET not configured');
+    return false;
+  }
+  const signature =
+    request.headers.get('x-zamtel-signature') ?? request.headers.get('x-callback-signature') ?? '';
+  const expected = crypto.createHmac('sha256', secret).update(body).digest('hex');
+  try {
+    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+  } catch {
+    return false;
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const rawBody = await request.text();
+
+    if (process.env.NODE_ENV === 'production') {
+      if (!verifyWebhookSignature(request, rawBody)) {
+        console.error('[Webhook:Zamtel] Invalid webhook signature');
+        return NextResponse.json({ success: false, message: 'Invalid signature' }, { status: 403 });
+      }
+    }
+
+    const body = JSON.parse(rawBody);
 
     // Zamtel Kwacha callback payload structure
     const transactionId = body.transactionId ?? body.transaction_id ?? body.txnId;
@@ -74,7 +100,7 @@ export async function POST(request: NextRequest) {
 
       await addSMSJob(
         booking.passengerPhone,
-        `[ZedPulse] Payment confirmed! Booking ${booking.reference} for ${routeName}${departureTime ? ` departing ${departureTime}` : ''} is confirmed. Fare: K${booking.price.toFixed(2)}. Show this reference when boarding.`
+        `[Twende] Payment confirmed! Booking ${booking.reference} for ${routeName}${departureTime ? ` departing ${departureTime}` : ''} is confirmed. Fare: K${booking.price.toFixed(2)}. Show this reference when boarding.`
       );
 
       console.log(`[Webhook:Zamtel] Payment SUCCESS for booking ${booking.reference}`);
@@ -94,7 +120,7 @@ export async function POST(request: NextRequest) {
 
       await addSMSJob(
         booking.passengerPhone,
-        `[ZedPulse] Payment failed for booking ${booking.reference}. Your seat has been released. Please try again.`
+        `[Twende] Payment failed for booking ${booking.reference}. Your seat has been released. Please try again.`
       );
 
       console.log(`[Webhook:Zamtel] Payment FAILED for booking ${booking.reference}`);

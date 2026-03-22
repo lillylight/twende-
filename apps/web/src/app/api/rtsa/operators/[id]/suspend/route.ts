@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
 import { addSMSJob } from '@/lib/queues/sms.queue';
+import { createAuditLog, AuditAction } from '@/lib/audit';
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
@@ -105,7 +106,7 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       if (operator.contactPhone) {
         await addSMSJob(
           operator.contactPhone,
-          `[ZedPulse RTSA] Your operator licence has been suspended. Reason: ${reason ?? 'Compliance violation'}. All scheduled journeys have been cancelled. Contact RTSA for details.`
+          `[Twende RTSA] Your operator licence has been suspended. Reason: ${reason ?? 'Compliance violation'}. All scheduled journeys have been cancelled. Contact RTSA for details.`
         );
       }
     } else {
@@ -113,10 +114,25 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       if (operator.contactPhone) {
         await addSMSJob(
           operator.contactPhone,
-          `[ZedPulse RTSA] Your operator licence suspension has been lifted. You may resume operations.`
+          `[Twende RTSA] Your operator licence suspension has been lifted. You may resume operations.`
         );
       }
     }
+
+    // Audit log: operator suspend/unsuspend
+    await createAuditLog({
+      userId: user.userId,
+      userRole: user.role,
+      action: shouldSuspend ? AuditAction.OPERATOR_SUSPEND : AuditAction.OPERATOR_UNSUSPEND,
+      resource: 'operator',
+      resourceId: id,
+      details: {
+        operatorName: operator.name,
+        reason: reason ?? null,
+        action: shouldSuspend ? 'suspended' : 'unsuspended',
+      },
+      request,
+    });
 
     return NextResponse.json(
       {

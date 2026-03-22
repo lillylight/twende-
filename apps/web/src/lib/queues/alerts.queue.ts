@@ -106,13 +106,13 @@ async function handleSpeeding(data: SpeedingAlertData): Promise<void> {
       ? `${journey.route.fromCity} to ${journey.route.toCity}`
       : 'your journey';
 
-    const passengerMsg = `[ZedPulse Safety] Speed alert on ${routeName}. Bus travelling at ${speed}km/h (limit: ${speedLimit}km/h). Authorities have been notified. Your safety is our priority.`;
+    const passengerMsg = `[Twende Safety] Speed alert on ${routeName}. Bus travelling at ${speed}km/h (limit: ${speedLimit}km/h). Authorities have been notified. Your safety is our priority.`;
 
     for (const phone of phones) {
       await addSMSJob(phone, passengerMsg);
     }
 
-    const rtsaMsg = `[ZedPulse RTSA Alert] CRITICAL SPEEDING: Journey ${journeyId}, speed ${speed}km/h in ${speedLimit}km/h zone. Location: ${lat},${lng}. Operator: ${operatorId}`;
+    const rtsaMsg = `[Twende RTSA Alert] CRITICAL SPEEDING: Journey ${journeyId}, speed ${speed}km/h in ${speedLimit}km/h zone. Location: ${lat},${lng}. Operator: ${operatorId}`;
     await addSMSJob(RTSA_PHONE, rtsaMsg);
 
     console.log(
@@ -146,7 +146,7 @@ async function handleRouteDeviation(data: RouteDeviationAlertData): Promise<void
     : 'your journey';
 
   const deviationKm = (deviationMeters / 1000).toFixed(1);
-  const msg = `[ZedPulse Safety] Route deviation detected on ${routeName}. Bus is ${deviationKm}km off route. We are monitoring the situation.`;
+  const msg = `[Twende Safety] Route deviation detected on ${routeName}. Bus is ${deviationKm}km off route. We are monitoring the situation.`;
 
   for (const phone of phones) {
     await addSMSJob(phone, msg);

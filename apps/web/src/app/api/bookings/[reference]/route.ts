@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/auth';
+import { createAuditLog, AuditAction } from '@/lib/audit';
 
 export async function GET(
   request: NextRequest,
@@ -197,6 +198,21 @@ export async function DELETE(
         where: { id: booking.journey.id },
         data: { availableSeats: { increment: 1 } },
       });
+    });
+
+    // Audit log: booking cancelled
+    await createAuditLog({
+      userId: user.userId,
+      userRole: user.role,
+      action: AuditAction.BOOKING_CANCEL,
+      resource: 'booking',
+      resourceId: booking.id,
+      details: {
+        reference: booking.reference,
+        journeyId: booking.journey.id,
+        hoursBeforeDeparture: Math.round(hoursUntilDeparture * 10) / 10,
+      },
+      request,
     });
 
     return NextResponse.json(

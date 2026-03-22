@@ -13,7 +13,7 @@ export interface PaymentInitiationResult {
   error?: string;
 }
 
-const CALLBACK_BASE_URL = process.env.PAYMENT_CALLBACK_BASE_URL ?? 'https://api.zedpulse.co.zm';
+const CALLBACK_BASE_URL = process.env.PAYMENT_CALLBACK_BASE_URL ?? 'https://api.twende.co.zm';
 
 function getCallbackUrl(provider: PaymentProvider): string {
   const path = provider.toLowerCase().replace(/_/g, '-');

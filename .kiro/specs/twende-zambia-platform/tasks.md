@@ -181,7 +181,7 @@ This implementation plan breaks down the Twende Zambia platform into discrete, i
     - Handle payment provider timeouts gracefully
     - _Requirements: 3.7_
 
-- [x] 7. Implement GPS tracking module
+- [ ] 7. Implement GPS tracking module
   - [x] 7.1 Create GPS data ingestion endpoint
     - Implement receiveGPSData REST endpoint accepting GPS data from driver app
     - Validate GPS data structure (latitude, longitude, speed, heading, accuracy, timestamp)
@@ -189,7 +189,7 @@ This implementation plan breaks down the Twende Zambia platform into discrete, i
     - Update Redis journey position cache
     - _Requirements: 4.1, 4.5_
 
-  - [ ] 7.2 Implement buffered GPS data batch processing
+  - [x] 7.2 Implement buffered GPS data batch processing
     - Implement receiveBufferedGPSData endpoint accepting array of GPS data
     - Validate chronological order of buffered data
     - Bulk insert GPS data maintaining timestamp order
@@ -200,13 +200,13 @@ This implementation plan breaks down the Twende Zambia platform into discrete, i
     - **Property 3: GPS Data Chronological Order Preservation**
     - **Validates: Requirements 4.8**
 
-  - [ ] 7.4 Implement current position retrieval
+  - [x] 7.4 Implement current position retrieval
     - Implement getCurrentPosition function querying Redis cache first
     - Fallback to database query for latest GPS data if cache miss
     - Return null if no GPS data exists for journey
     - _Requirements: 5.1_
 
-  - [ ] 7.5 Implement tracking link generation and validation
+  - [x] 7.5 Implement tracking link generation and validation
     - Implement generateTrackingLink creating unique token with crypto.randomBytes
     - Store tracking link in tracking_links table with journey_id and expiry
     - Set expiry to journey end time plus 2 hours
@@ -218,15 +218,15 @@ This implementation plan breaks down the Twende Zambia platform into discrete, i
     - **Property 32: Tracking Link Viewer Limit**
     - **Validates: Requirements 19.7**
 
-- [ ] 8. Implement WebSocket server for real-time communication
-  - [ ] 8.1 Set up Socket.io server with authentication
+- [x] 8. Implement WebSocket server for real-time communication
+  - [x] 8.1 Set up Socket.io server with authentication
     - Initialize Socket.io server with CORS configuration
     - Implement JWT-based WebSocket authentication middleware
     - Create journey-specific rooms for position broadcasting
     - Track connected clients in Redis sets
     - _Requirements: 16.1, 16.5_
 
-  - [ ] 8.2 Implement position broadcasting
+  - [x] 8.2 Implement position broadcasting
     - Implement broadcastPosition function emitting to journey room
     - Broadcast GPS data to all connected passengers within 1 second
     - Update Redis journey position cache before broadcasting

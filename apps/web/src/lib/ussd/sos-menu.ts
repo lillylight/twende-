@@ -1,13 +1,18 @@
 import { prisma } from '../prisma';
-import { formatZambianPhone, formatCurrency } from '../utils';
+import { formatZambianPhone } from '../utils';
 import { reverseGeocode } from '../geocoding';
 import { addSMSJob } from '../queues/sms.queue';
+import { t } from '../i18n';
 
 const EMERGENCY_PHONE = process.env.EMERGENCY_PHONE ?? '+260211999999';
 const RTSA_PHONE = process.env.RTSA_ALERT_PHONE ?? '+260211234567';
 const POLICE_PHONE = process.env.POLICE_PHONE ?? '+260211911111';
 
-export async function handle(phoneNumber: string, sessionId: string): Promise<string> {
+export async function handle(
+  phoneNumber: string,
+  sessionId: string,
+  lang: string = 'en'
+): Promise<string> {
   const phone = formatZambianPhone(phoneNumber);
 
   // Find the user's active booking/journey
@@ -75,19 +80,16 @@ export async function handle(phoneNumber: string, sessionId: string): Promise<st
   }
 
   // Build emergency message
-  const emergencyMsg = [
-    `[ZedPulse SOS ALERT]`,
-    `Passenger: ${phone}`,
-    `Location: ${locationText}`,
-    lat && lng ? `GPS: ${lat},${lng}` : '',
-    `Route: ${routeText}`,
-    `Bus: ${busRegistration}`,
-    `Operator: ${operatorName}`,
-    `Time: ${new Date().toLocaleString('en-ZM')}`,
-    `Immediate response required.`,
-  ]
-    .filter(Boolean)
-    .join('\n');
+  const gpsLine = lat && lng ? `GPS: ${lat},${lng}\n` : '';
+  const emergencyMsg = t('sos_sms_emergency', lang, {
+    phone,
+    location: locationText,
+    gps: gpsLine,
+    route: routeText,
+    bus: busRegistration,
+    operator: operatorName,
+    time: new Date().toLocaleString('en-ZM'),
+  });
 
   // Notify all emergency services in parallel
   await Promise.all([
@@ -102,16 +104,18 @@ export async function handle(phoneNumber: string, sessionId: string): Promise<st
     if (operatorPhone) {
       await addSMSJob(
         formatZambianPhone(operatorPhone),
-        `[ZedPulse SOS] Emergency on bus ${busRegistration}, route ${routeText}. Location: ${locationText}. Passenger: ${phone}. Take immediate action.`
+        t('sos_sms_operator', lang, {
+          bus: busRegistration,
+          route: routeText,
+          location: locationText,
+          phone,
+        })
       );
     }
   }
 
   // Confirm to the user
-  await addSMSJob(
-    phone,
-    `[ZedPulse SOS] Your emergency alert has been received. Police, RTSA, and emergency services have been notified. Help is on the way. If you are in immediate danger, call 911 or 999.`
-  );
+  await addSMSJob(phone, t('sos_sms_passenger', lang));
 
-  return `END SOS ALERT SENT!\n\nEmergency services, RTSA, and police have been notified.\n\nYour location: ${locationText}\n\nStay calm. Help is on the way.\n\nIf in immediate danger, call 911.`;
+  return `END ${t('sos_confirm', lang, { location: locationText })}`;
 }

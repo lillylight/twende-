@@ -3,6 +3,7 @@ import { formatZambianPhone } from '../utils';
 import { addPaymentJob } from '../queues/payments.queue';
 import { generateBookingReference } from '../utils';
 import { type USSDSession, setSession } from './session';
+import { t } from '../i18n';
 
 type PaymentProvider = 'AIRTEL_MONEY' | 'MTN_MOMO' | 'ZAMTEL_KWACHA';
 
@@ -42,6 +43,7 @@ export async function handle(
   sessionId: string
 ): Promise<string> {
   const step = session.step;
+  const lang = session.data.language ?? 'en';
 
   // Step 1: Select departure city
   if (step === 0) {
@@ -49,7 +51,7 @@ export async function handle(
     session.currentMenu = 'booking';
     await setSession(sessionId, session);
 
-    return `CON Select departure city:\n${buildCityMenu()}`;
+    return `CON ${t('booking_departure', lang)}\n${buildCityMenu()}`;
   }
 
   // Step 2: Process departure city, show destination cities
@@ -58,14 +60,14 @@ export async function handle(
     const city = getCityByIndex(input);
 
     if (!city) {
-      return 'END Invalid selection. Please try again.';
+      return `END ${t('invalid_input', lang)}`;
     }
 
     session.data.fromCity = city;
     session.step = 2;
     await setSession(sessionId, session);
 
-    return `CON From: ${city}\nSelect destination:\n${buildCityMenu(city)}`;
+    return `CON ${t('booking_destination', lang, { fromCity: city })}\n${buildCityMenu(city)}`;
   }
 
   // Step 3: Process destination, show available journeys
@@ -74,7 +76,7 @@ export async function handle(
     const city = getCityByIndex(input, session.data.fromCity);
 
     if (!city) {
-      return 'END Invalid selection. Please try again.';
+      return `END ${t('invalid_input', lang)}`;
     }
 
     session.data.toCity = city;
@@ -100,10 +102,10 @@ export async function handle(
     });
 
     if (journeys.length === 0) {
-      return `END No buses available from ${session.data.fromCity} to ${city}. Please try later.`;
+      return `END ${t('no_buses', lang, { fromCity: session.data.fromCity, toCity: city })}`;
     }
 
-    let menu = `CON ${session.data.fromCity} -> ${city}\nAvailable buses:\n`;
+    let menu = `CON ${t('booking_operators', lang, { fromCity: session.data.fromCity, toCity: city })}\n`;
 
     const journeyIds: string[] = [];
     for (let i = 0; i < journeys.length; i++) {
@@ -130,7 +132,7 @@ export async function handle(
     const selectedId = journeyIds[input - 1];
 
     if (!selectedId) {
-      return 'END Invalid selection. Please try again.';
+      return `END ${t('invalid_input', lang)}`;
     }
 
     const journey = await prisma.journey.findUnique({
@@ -142,7 +144,7 @@ export async function handle(
     });
 
     if (!journey || journey.availableSeats <= 0) {
-      return 'END Sorry, this journey is no longer available.';
+      return `END ${t('journey_unavailable', lang)}`;
     }
 
     session.data.journeyId = selectedId;
@@ -151,7 +153,12 @@ export async function handle(
     session.step = 4;
     await setSession(sessionId, session);
 
-    return `CON ${journey.operator.name}\n${session.data.fromCity} -> ${session.data.toCity}\nFare: K${journey.price}\n\nSelect payment method:\n1. Airtel Money\n2. MTN MoMo\n3. Zamtel Kwacha`;
+    return `CON ${t('booking_payment', lang, {
+      operatorName: journey.operator.name,
+      fromCity: session.data.fromCity,
+      toCity: session.data.toCity,
+      price: journey.price.toString(),
+    })}`;
   }
 
   // Step 5: Confirm and process payment
@@ -166,7 +173,7 @@ export async function handle(
 
     const method = paymentMethods[input];
     if (!method) {
-      return 'END Invalid payment method. Please try again.';
+      return `END ${t('invalid_payment', lang)}`;
     }
 
     const phone = formatZambianPhone(session.phoneNumber);
@@ -219,8 +226,13 @@ export async function handle(
       reference,
     });
 
-    return `END Booking confirmed!\nRef: ${reference}\n${session.data.fromCity} -> ${session.data.toCity}\nFare: K${price.toFixed(2)}\n\nA payment prompt will be sent to your phone. Approve to complete booking.`;
+    return `END ${t('booking_confirmed', lang, {
+      reference,
+      fromCity: session.data.fromCity,
+      toCity: session.data.toCity,
+      price: price.toFixed(2),
+    })}`;
   }
 
-  return 'END An error occurred. Please try again.';
+  return `END ${t('error_occurred', lang)}`;
 }

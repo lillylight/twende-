@@ -193,7 +193,7 @@ export default function RegisterPage() {
     <Card>
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Create Account</CardTitle>
-        <p className="mt-1 text-sm text-gray-500">Join ZedPulse for safer travel across Zambia</p>
+        <p className="mt-1 text-sm text-gray-500">Join Twende for safer travel across Zambia</p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleRegister} className="space-y-4">

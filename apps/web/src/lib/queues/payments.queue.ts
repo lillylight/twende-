@@ -58,7 +58,7 @@ export const paymentsWorker = new Worker<PaymentJobData>(
       // Notify user of failure
       await addSMSJob(
         phone,
-        `[ZedPulse] Payment for booking ${reference} failed. Please try again or use a different payment method.`
+        `[Twende] Payment for booking ${reference} failed. Please try again or use a different payment method.`
       );
 
       throw new Error(`Payment initiation failed: ${result.error}`);
@@ -71,7 +71,7 @@ export const paymentsWorker = new Worker<PaymentJobData>(
     // Send confirmation SMS that payment prompt was sent
     await addSMSJob(
       phone,
-      `[ZedPulse] Payment request sent to your ${method.replace(/_/g, ' ')} account. Please approve the payment of K${amount.toFixed(2)} for booking ${reference}.`
+      `[Twende] Payment request sent to your ${method.replace(/_/g, ' ')} account. Please approve the payment of K${amount.toFixed(2)} for booking ${reference}.`
     );
 
     return {

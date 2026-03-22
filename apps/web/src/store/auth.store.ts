@@ -241,7 +241,7 @@ export const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: 'zedpulse-auth',
+      name: 'twende-auth',
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         user: state.user,

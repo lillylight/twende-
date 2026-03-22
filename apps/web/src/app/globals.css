@@ -207,3 +207,49 @@ a:hover {
     border: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
+
+/* ─── High Contrast Mode ─────────────────────────────────────────────────── */
+
+.high-contrast {
+  --color-primary-500: #00ff41;
+  --color-primary-600: #00cc34;
+  --color-primary-700: #00ff41;
+  --color-accent-500: #ffd700;
+  --color-danger-500: #ff4444;
+  --color-dark: #ffffff;
+  --color-light: #000000;
+  --color-light-100: #111111;
+  --color-light-200: #1a1a1a;
+  --color-light-300: #333333;
+  --color-light-400: #cccccc;
+  --color-dark-400: #cccccc;
+}
+
+.high-contrast body {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.high-contrast a {
+  color: #66ccff;
+}
+
+.high-contrast a:hover {
+  color: #99ddff;
+}
+
+.high-contrast :focus-visible {
+  outline: 3px solid #ffd700;
+  outline-offset: 2px;
+}
+
+/* ─── Reduce Motion ──────────────────────────────────────────────────────── */
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

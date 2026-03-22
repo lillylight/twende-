@@ -61,7 +61,7 @@ export async function POST(
       );
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://zedpulse.co.zm';
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'https://twende.co.zm';
     const trackingToken = booking.journey.trackingToken;
     const trackingUrl = `${baseUrl}/track/${trackingToken}`;
 

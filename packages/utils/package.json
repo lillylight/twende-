@@ -1,5 +1,5 @@
 {
-  "name": "@zedpulse/utils",
+  "name": "@twende/utils",
   "version": "1.0.0",
   "description": "Shared utility functions",
   "main": "dist/index.js",

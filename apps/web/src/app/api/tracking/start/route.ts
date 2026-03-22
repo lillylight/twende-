@@ -119,7 +119,7 @@ export async function POST(request: NextRequest) {
     for (const booking of journey.bookings) {
       await addSMSJob(
         booking.passengerPhone,
-        `[ZedPulse] Your bus on ${routeName} has departed. Track live: ${process.env.NEXT_PUBLIC_APP_URL ?? 'https://zedpulse.co.zm'}/track/${journey.trackingToken}`
+        `[Twende] Your bus on ${routeName} has departed. Track live: ${process.env.NEXT_PUBLIC_APP_URL ?? 'https://twende.co.zm'}/track/${journey.trackingToken}`
       );
     }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@zedpulse/types",
+  "name": "@twende/types",
   "version": "1.0.0",
   "description": "Shared TypeScript types and interfaces",
   "main": "dist/index.js",

@@ -74,10 +74,61 @@ const nextConfig: NextConfig = {
   },
 
   async headers() {
+    const securityHeaders = [
+      {
+        key: 'Strict-Transport-Security',
+        value: 'max-age=31536000; includeSubDomains',
+      },
+      {
+        key: 'X-Frame-Options',
+        value: 'DENY',
+      },
+      {
+        key: 'X-Content-Type-Options',
+        value: 'nosniff',
+      },
+      {
+        key: 'X-XSS-Protection',
+        value: '1; mode=block',
+      },
+      {
+        key: 'Referrer-Policy',
+        value: 'strict-origin-when-cross-origin',
+      },
+      {
+        key: 'Content-Security-Policy',
+        value: [
+          "default-src 'self'",
+          "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://maps.googleapis.com https://maps.gstatic.com https://cesium.com https://*.cesium.com",
+          "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cesium.com",
+          "img-src 'self' data: blob: https://*.googleapis.com https://*.gstatic.com https://*.google.com https://*.cesium.com https://*.tile.openstreetmap.org",
+          "font-src 'self' https://fonts.gstatic.com",
+          "connect-src 'self' https://*.googleapis.com https://*.google.com https://*.cesium.com wss://* ws://*",
+          "frame-src 'self' https://maps.googleapis.com",
+          "worker-src 'self' blob:",
+          "child-src 'self' blob:",
+          "media-src 'self'",
+          "object-src 'none'",
+          "base-uri 'self'",
+          "form-action 'self'",
+          "frame-ancestors 'none'",
+        ].join('; '),
+      },
+      {
+        key: 'Permissions-Policy',
+        value: 'camera=(), microphone=(), geolocation=(self)',
+      },
+    ];
+
     return [
+      {
+        source: '/(.*)',
+        headers: securityHeaders,
+      },
       {
         source: '/cesium/:path*',
         headers: [
+          ...securityHeaders,
           {
             key: 'Access-Control-Allow-Origin',
             value: '*',

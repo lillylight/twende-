@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { verifyPassword, createSession } from '@/lib/auth';
+import { createAuditLog, AuditAction } from '@/lib/audit';
 
 export async function POST(request: NextRequest) {
   try {
@@ -59,6 +60,17 @@ export async function POST(request: NextRequest) {
     }
 
     const tokens = createSession(user.id, user.role, user.phone);
+
+    // Audit log: successful login
+    await createAuditLog({
+      userId: user.id,
+      userRole: user.role,
+      action: AuditAction.LOGIN,
+      resource: 'user',
+      resourceId: user.id,
+      details: { phone: user.phone },
+      request,
+    });
 
     return NextResponse.json(
       {

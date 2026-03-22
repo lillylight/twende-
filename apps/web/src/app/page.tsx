@@ -253,8 +253,8 @@ export default function LandingPage() {
             Everything You Need for <span className="text-[#0F6E56]">Safer Travel</span>
           </h2>
           <p className="text-gray-500">
-            From booking to arrival, ZedPulse keeps you safe, informed, and connected every
-            kilometre of the way.
+            From booking to arrival, Twende keeps you safe, informed, and connected every kilometre
+            of the way.
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -305,7 +305,7 @@ export default function LandingPage() {
         <div className="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white sm:text-4xl">Ready to Travel Safer?</h2>
           <p className="mb-8 text-lg text-white/80">
-            Join thousands of Zambians who trust ZedPulse for their daily commute and intercity
+            Join thousands of Zambians who trust Twende for their daily commute and intercity
             travel.
           </p>
           <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
@@ -390,14 +390,14 @@ export default function LandingPage() {
             <div>
               <h4 className="mb-3 font-semibold text-[#1A1A1A]">Contact</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li>support@zedpulse.co.zm</li>
+                <li>support@twende.co.zm</li>
                 <li>+260 211 123 456</li>
                 <li>Lusaka, Zambia</li>
               </ul>
             </div>
           </div>
           <div className="mt-8 border-t border-gray-100 pt-8 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} ZedPulse. All rights reserved.
+            &copy; {new Date().getFullYear()} Twende. All rights reserved.
           </div>
         </div>
       </footer>

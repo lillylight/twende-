@@ -1,6 +1,6 @@
-# ZedPulse - Real-Time Bus Safety & Booking Platform for Zambia
+# Twende - Real-Time Bus Safety & Booking Platform for Zambia
 
-ZedPulse is a comprehensive transportation safety and booking platform built for Zambia's intercity bus network. It provides real-time GPS tracking, verified operators, USSD booking via \*147#, mobile money payments (Airtel Money, MTN MoMo, Zamtel Kwacha), and RTSA compliance monitoring.
+Twende is a comprehensive transportation safety and booking platform built for Zambia's intercity bus network. It provides real-time GPS tracking, verified operators, USSD booking via \*147#, mobile money payments (Airtel Money, MTN MoMo, Zamtel Kwacha), and RTSA compliance monitoring.
 
 ## Architecture
 
@@ -17,7 +17,7 @@ ZedPulse is a comprehensive transportation safety and booking platform built for
 ## Project Structure
 
 ```
-zedpulse/
+twende/
 ├── apps/web/                   # Next.js web application
 │   ├── prisma/                 # Database schema & seed
 │   ├── src/

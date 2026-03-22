@@ -3,6 +3,7 @@ import { calculateETA, reverseGeocode } from '../geocoding';
 import { formatZambianPhone } from '../utils';
 import { addSMSJob } from '../queues/sms.queue';
 import { type USSDSession, setSession } from './session';
+import { t } from '../i18n';
 
 export async function handle(
   inputs: string[],
@@ -10,6 +11,7 @@ export async function handle(
   sessionId: string
 ): Promise<string> {
   const step = session.step;
+  const lang = session.data.language ?? 'en';
 
   // Step 1: Ask for booking reference
   if (step === 0) {
@@ -17,7 +19,7 @@ export async function handle(
     session.currentMenu = 'tracking';
     await setSession(sessionId, session);
 
-    return 'CON Enter your booking reference (e.g. ZP-ABC123):';
+    return `CON ${t('tracking_enter_ref', lang)}`;
   }
 
   // Step 2: Show tracking info
@@ -40,7 +42,7 @@ export async function handle(
     });
 
     if (!booking) {
-      return 'END Booking not found. Please check your reference and try again.';
+      return `END ${t('booking_not_found', lang)}`;
     }
 
     const journey = booking.journey;
@@ -49,7 +51,7 @@ export async function handle(
 
     if (!latestGps) {
       const statusText =
-        journey.status === 'SCHEDULED' ? 'Bus has not departed yet.' : 'No GPS data available.';
+        journey.status === 'SCHEDULED' ? t('no_gps_scheduled', lang) : t('no_gps_data', lang);
 
       return `END ${route.fromCity} -> ${route.toCity}\nStatus: ${journey.status}\n${statusText}\nDeparture: ${journey.departureTime.toLocaleTimeString('en-ZM', { hour: '2-digit', minute: '2-digit', hour12: false })}`;
     }
@@ -68,7 +70,13 @@ export async function handle(
     session.step = 2;
     await setSession(sessionId, session);
 
-    return `CON ${route.fromCity} -> ${route.toCity}\nLocation: ${nearestTown}\nSpeed: ${speed}km/h\nETA: ${etaText}\n\n1. Share tracking link\n2. SOS Emergency\n3. Report reckless driving`;
+    return `CON ${t('tracking_status', lang, {
+      fromCity: route.fromCity,
+      toCity: route.toCity,
+      location: nearestTown,
+      speed: speed.toString(),
+      eta: etaText,
+    })}`;
   }
 
   // Step 3: Handle tracking actions
@@ -79,11 +87,11 @@ export async function handle(
     if (input === 1) {
       // Share tracking link
       const trackingToken = session.data.trackingToken;
-      const trackingUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://zedpulse.co.zm'}/track/${trackingToken}`;
+      const trackingUrl = `${process.env.NEXT_PUBLIC_APP_URL ?? 'https://twende.co.zm'}/track/${trackingToken}`;
 
-      await addSMSJob(phone, `Track your ZedPulse bus live: ${trackingUrl}`);
+      await addSMSJob(phone, t('tracking_sms_link', lang, { url: trackingUrl }));
 
-      return 'END Tracking link has been sent to your phone via SMS.';
+      return `END ${t('tracking_link_sent', lang)}`;
     }
 
     if (input === 2) {
@@ -124,15 +132,16 @@ export async function handle(
 
       await addSMSJob(
         emergencyPhone,
-        `[ZedPulse SOS] Emergency on journey ${journeyId}. Passenger: ${phone}. Location: ${location}. Immediate response required.`
+        t('tracking_sms_sos_emergency', lang, {
+          journeyId,
+          phone,
+          location,
+        })
       );
 
-      await addSMSJob(
-        phone,
-        `[ZedPulse SOS] Your emergency alert has been sent. Help is on the way. Stay calm and stay on the bus if safe to do so.`
-      );
+      await addSMSJob(phone, t('tracking_sms_sos', lang));
 
-      return 'END SOS alert sent! Emergency services have been notified. Help is on the way.';
+      return `END ${t('sos_sent', lang)}`;
     }
 
     if (input === 3) {
@@ -171,14 +180,17 @@ export async function handle(
       const rtsaPhone = process.env.RTSA_ALERT_PHONE ?? '+260211234567';
       await addSMSJob(
         rtsaPhone,
-        `[ZedPulse Report] Reckless driving reported by passenger on journey ${journeyId}. Bus: ${journey?.busRegistration ?? 'N/A'}. Please investigate.`
+        t('tracking_sms_reckless', lang, {
+          journeyId,
+          bus: journey?.busRegistration ?? 'N/A',
+        })
       );
 
-      return 'END Thank you for reporting. Your report has been sent to RTSA for investigation.';
+      return `END ${t('report_driver', lang)}`;
     }
 
-    return 'END Invalid option. Please try again.';
+    return `END ${t('invalid_option', lang)}`;
   }
 
-  return 'END An error occurred. Please try again.';
+  return `END ${t('error_occurred', lang)}`;
 }

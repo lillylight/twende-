@@ -42,7 +42,7 @@ function setTime(date: Date, hours: number, minutes: number): Date {
 }
 
 async function main() {
-  console.log('Seeding ZedPulse database...');
+  console.log('Seeding Twende database...');
 
   // Clean existing data in dependency order
   await prisma.rating.deleteMany();
@@ -58,7 +58,7 @@ async function main() {
 
   console.log('Cleared existing data.');
 
-  const passwordHash = await bcrypt.hash('ZedPulse2026!', 12);
+  const passwordHash = await bcrypt.hash('Twende2026!', 12);
 
   // ─── Operators ───────────────────────────────────────────────────────────
 

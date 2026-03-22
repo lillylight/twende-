@@ -8,8 +8,16 @@ const SALT_ROUNDS = 12;
 const OTP_TTL_SECONDS = 300; // 5 minutes
 const OTP_PREFIX = 'otp:';
 
-const JWT_SECRET = process.env.JWT_SECRET ?? 'zedpulse-dev-secret';
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET ?? 'zedpulse-dev-refresh-secret';
+const JWT_SECRET = requireEnv('JWT_SECRET');
+const JWT_REFRESH_SECRET = requireEnv('JWT_REFRESH_SECRET');
+
+function requireEnv(name: string): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}. Set it in your .env file.`);
+  }
+  return value;
+}
 const ACCESS_TOKEN_EXPIRY = '15m';
 const REFRESH_TOKEN_EXPIRY = '7d';
 

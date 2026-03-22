@@ -41,7 +41,7 @@ export async function initiatePayment(
       currency: ZAMTEL_CURRENCY,
       reference,
       merchantId: ZAMTEL_MERCHANT_ID,
-      narration: `ZedPulse bus ticket: ${reference}`,
+      narration: `Twende bus ticket: ${reference}`,
     });
 
     const { data } = response;

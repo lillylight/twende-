@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { redis } from '@/lib/redis';
 import { getCurrentUser } from '@/lib/auth';
 import { checkSafetyThresholds } from '@/lib/safety/thresholds';
+import { publishPosition, publishSOSPosition, type PositionUpdate } from '@/lib/websocket';
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,6 +45,40 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate coordinate ranges
+    if (
+      typeof lat !== 'number' ||
+      typeof lng !== 'number' ||
+      lat < -90 ||
+      lat > 90 ||
+      lng < -180 ||
+      lng > 180
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: {
+            code: 'VALIDATION_ERROR',
+            message: 'Invalid coordinates. Latitude must be -90 to 90, longitude -180 to 180.',
+          },
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
+    // Validate speed (0-300 km/h reasonable range for buses)
+    if (speed !== undefined && (typeof speed !== 'number' || speed < 0 || speed > 300)) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: { code: 'VALIDATION_ERROR', message: 'Invalid speed value.' },
+          timestamp: new Date().toISOString(),
+        },
+        { status: 400 }
+      );
+    }
+
     const journey = await prisma.journey.findUnique({
       where: { id: journeyId },
       select: { id: true, status: true, operatorId: true, driverId: true, vehicleId: true },
@@ -65,7 +100,7 @@ export async function POST(request: NextRequest) {
     const timestamp = new Date();
 
     // Store position in Redis for real-time access
-    const positionData = {
+    const positionData: PositionUpdate = {
       journeyId,
       lat,
       lng,
@@ -125,8 +160,24 @@ export async function POST(request: NextRequest) {
       operatorId: journey.operatorId,
     });
 
-    // Publish to Redis pub/sub for WebSocket subscribers
+    // Publish to Redis pub/sub for WebSocket/SSE subscribers
     await redis.publish(`tracking:live:${journeyId}`, JSON.stringify(positionData));
+
+    // Also publish through the structured WebSocket channel
+    await publishPosition(journeyId, positionData);
+
+    // Check if SOS is active for this journey
+    const sosActive = await redis.get(`sos:active:${journeyId}`);
+    if (sosActive) {
+      // Publish position to the SOS monitoring channel for enhanced tracking
+      await publishSOSPosition(journeyId, positionData);
+
+      // Store position in the SOS-specific positions list for continuous tracking
+      await redis.rpush(`sos:positions:${journeyId}`, JSON.stringify(positionData));
+      // Cap the list to the latest 1000 positions and set TTL
+      await redis.ltrim(`sos:positions:${journeyId}`, -1000, -1);
+      await redis.expire(`sos:positions:${journeyId}`, 86400); // 24 hour TTL
+    }
 
     return NextResponse.json(
       {
@@ -140,6 +191,7 @@ export async function POST(request: NextRequest) {
             speedSeverity: safetyResult.speedSeverity,
             routeDeviationSeverity: safetyResult.routeDeviationSeverity,
           },
+          sosActive: !!sosActive,
         },
         timestamp: new Date().toISOString(),
       },

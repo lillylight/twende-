@@ -1,7 +1,7 @@
 {
-  "name": "zedpulse-platform",
+  "name": "twende-platform",
   "version": "1.0.0",
-  "description": "ZedPulse — Real-time bus tracking, safety monitoring, and booking platform for Zambia",
+  "description": "Twende — Real-time bus tracking, safety monitoring, and booking platform for Zambia",
   "private": true,
   "workspaces": [
     "apps/web",

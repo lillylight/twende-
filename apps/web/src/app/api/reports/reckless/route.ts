@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
 
     await addSMSJob(
       RTSA_PHONE,
-      `[ZedPulse Report] Reckless driving reported by passenger. Route: ${routeName}, Bus: ${busReg}, Operator: ${journey.operator.name}. ${lat && lng ? `GPS: ${lat},${lng}` : ''}. Please investigate.`
+      `[Twende Report] Reckless driving reported by passenger. Route: ${routeName}, Bus: ${busReg}, Operator: ${journey.operator.name}. ${lat && lng ? `GPS: ${lat},${lng}` : ''}. Please investigate.`
     );
 
     return NextResponse.json(

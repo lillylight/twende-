@@ -85,7 +85,7 @@ export default function LoginPage() {
     <Card>
       <CardHeader className="text-center">
         <CardTitle className="text-2xl">Welcome Back</CardTitle>
-        <p className="mt-1 text-sm text-gray-500">Sign in to your ZedPulse account</p>
+        <p className="mt-1 text-sm text-gray-500">Sign in to your Twende account</p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">

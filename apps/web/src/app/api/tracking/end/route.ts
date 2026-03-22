@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     for (const booking of journey.bookings) {
       await addSMSJob(
         booking.passengerPhone,
-        `[ZedPulse] Your journey ${routeName} has arrived. Thank you for travelling with us! Rate your trip at ${process.env.NEXT_PUBLIC_APP_URL ?? 'https://zedpulse.co.zm'}/rate/${booking.id}`
+        `[Twende] Your journey ${routeName} has arrived. Thank you for travelling with us! Rate your trip at ${process.env.NEXT_PUBLIC_APP_URL ?? 'https://twende.co.zm'}/rate/${booking.id}`
       );
     }
 

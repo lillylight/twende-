@@ -126,7 +126,7 @@ export async function requestToPay(
           partyIdType: 'MSISDN',
           partyId: subscriberPhone,
         },
-        payerMessage: `ZedPulse booking: ${reference}`,
+        payerMessage: `Twende booking: ${reference}`,
         payeeNote: `Bus ticket payment ${reference}`,
       },
       {

@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { hashPassword, generateOTP, storeOTP, createSession } from '@/lib/auth';
 import { sendSMS } from '@/lib/sms';
 import { UserRole } from '@prisma/client';
+import { createAuditLog, AuditAction } from '@/lib/audit';
 
 export async function POST(request: NextRequest) {
   try {
@@ -57,7 +58,18 @@ export async function POST(request: NextRequest) {
     // Generate and send OTP for phone verification
     const otpCode = generateOTP();
     await storeOTP(phone, otpCode);
-    await sendSMS(phone, `[ZedPulse] Your verification code is: ${otpCode}. Valid for 5 minutes.`);
+    await sendSMS(phone, `[Twende] Your verification code is: ${otpCode}. Valid for 5 minutes.`);
+
+    // Audit log: user registration
+    await createAuditLog({
+      userId: user.id,
+      userRole: user.role,
+      action: AuditAction.REGISTER,
+      resource: 'user',
+      resourceId: user.id,
+      details: { phone, role: userRole },
+      request,
+    });
 
     // Create session tokens
     const tokens = createSession(user.id, user.role, user.phone);

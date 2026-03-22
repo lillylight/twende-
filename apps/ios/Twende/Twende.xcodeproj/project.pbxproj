@@ -1,0 +1,533 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F100000001 /* TwendeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000001; };
+		F100000002 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000002; };
+		F100000003 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000003; };
+		F100000004 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000004; };
+		F100000005 /* TokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000005; };
+		F100000006 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000006; };
+		F100000007 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000007; };
+		F100000008 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000008; };
+		F100000009 /* JourneyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000009; };
+		F100000010 /* BookingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000010; };
+		F100000011 /* SOSRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000011; };
+		F100000012 /* RatingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000012; };
+		F100000013 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000013; };
+		F100000014 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000014; };
+		F100000015 /* BookingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000015; };
+		F100000016 /* TrackingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000016; };
+		F100000017 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000017; };
+		F100000018 /* SOSViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000018; };
+		F100000019 /* RatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000019; };
+		F100000020 /* PaymentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000020; };
+		F100000021 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000021; };
+		F100000022 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000022; };
+		F100000023 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000023; };
+		F100000024 /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000024; };
+		F100000025 /* PassengerHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000025; };
+		F100000026 /* SeatSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000026; };
+		F100000027 /* BookingConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000027; };
+		F100000028 /* MyBookingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000028; };
+		F100000029 /* BookingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000029; };
+		F100000030 /* TrackingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000030; };
+		F100000031 /* SOSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000031; };
+		F100000032 /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000032; };
+		F100000033 /* PaymentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000033; };
+		F100000034 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000034; };
+		F100000035 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000035; };
+		F100000036 /* TwendeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000036; };
+		F100000037 /* StatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000037; };
+		F100000038 /* SeatGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000038; };
+		F100000039 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000039; };
+		F100000040 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000040; };
+		F100000041 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000041; };
+		F100000042 /* PaymentMethodPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F200000042; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F200000001 /* TwendeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwendeApp.swift; sourceTree = "<group>"; };
+		F200000002 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		F200000003 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		F200000004 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		F200000005 /* TokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenStore.swift; sourceTree = "<group>"; };
+		F200000006 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		F200000007 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		F200000008 /* AuthRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		F200000009 /* JourneyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyRepository.swift; sourceTree = "<group>"; };
+		F200000010 /* BookingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingRepository.swift; sourceTree = "<group>"; };
+		F200000011 /* SOSRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSRepository.swift; sourceTree = "<group>"; };
+		F200000012 /* RatingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingRepository.swift; sourceTree = "<group>"; };
+		F200000013 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		F200000014 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		F200000015 /* BookingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewModel.swift; sourceTree = "<group>"; };
+		F200000016 /* TrackingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingViewModel.swift; sourceTree = "<group>"; };
+		F200000017 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		F200000018 /* SOSViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSViewModel.swift; sourceTree = "<group>"; };
+		F200000019 /* RatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewModel.swift; sourceTree = "<group>"; };
+		F200000020 /* PaymentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewModel.swift; sourceTree = "<group>"; };
+		F200000021 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		F200000022 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		F200000023 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		F200000024 /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
+		F200000025 /* PassengerHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassengerHomeView.swift; sourceTree = "<group>"; };
+		F200000026 /* SeatSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatSelectionView.swift; sourceTree = "<group>"; };
+		F200000027 /* BookingConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingConfirmationView.swift; sourceTree = "<group>"; };
+		F200000028 /* MyBookingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyBookingsView.swift; sourceTree = "<group>"; };
+		F200000029 /* BookingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingDetailView.swift; sourceTree = "<group>"; };
+		F200000030 /* TrackingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingView.swift; sourceTree = "<group>"; };
+		F200000031 /* SOSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SOSView.swift; sourceTree = "<group>"; };
+		F200000032 /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		F200000033 /* PaymentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentView.swift; sourceTree = "<group>"; };
+		F200000034 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		F200000035 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		F200000036 /* TwendeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwendeButton.swift; sourceTree = "<group>"; };
+		F200000037 /* StatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadge.swift; sourceTree = "<group>"; };
+		F200000038 /* SeatGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeatGridView.swift; sourceTree = "<group>"; };
+		F200000039 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		F200000040 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		F200000041 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		F200000042 /* PaymentMethodPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodPicker.swift; sourceTree = "<group>"; };
+		F200000043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F300000001 /* Twende.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twende.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F400000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		ROOT_GROUP = {
+			isa = PBXGroup;
+			children = (
+				APP_GROUP,
+				PRODUCTS_GROUP,
+			);
+			sourceTree = "<group>";
+		};
+		PRODUCTS_GROUP = {
+			isa = PBXGroup;
+			children = (
+				F300000001 /* Twende.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		APP_GROUP = {
+			isa = PBXGroup;
+			children = (
+				G_APP,
+				G_MODELS,
+				G_SERVICES,
+				G_REPOSITORIES,
+				G_VIEWMODELS,
+				G_VIEWS,
+				G_UTILITIES,
+				G_RESOURCES,
+			);
+			path = Twende;
+			sourceTree = "<group>";
+		};
+		G_APP = {
+			isa = PBXGroup;
+			children = (
+				F200000001 /* TwendeApp.swift */,
+				F200000002 /* AppState.swift */,
+				F200000003 /* Router.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G_MODELS = {
+			isa = PBXGroup;
+			children = (
+				F200000004 /* Models.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G_SERVICES = {
+			isa = PBXGroup;
+			children = (
+				F200000007 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		G_REPOSITORIES = {
+			isa = PBXGroup;
+			children = (
+				F200000008 /* AuthRepository.swift */,
+				F200000009 /* JourneyRepository.swift */,
+				F200000010 /* BookingRepository.swift */,
+				F200000011 /* SOSRepository.swift */,
+				F200000012 /* RatingRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		G_VIEWMODELS = {
+			isa = PBXGroup;
+			children = (
+				F200000013 /* AuthViewModel.swift */,
+				F200000014 /* SearchViewModel.swift */,
+				F200000015 /* BookingViewModel.swift */,
+				F200000016 /* TrackingViewModel.swift */,
+				F200000017 /* HistoryViewModel.swift */,
+				F200000018 /* SOSViewModel.swift */,
+				F200000019 /* RatingViewModel.swift */,
+				F200000020 /* PaymentViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		G_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000021 /* RootView.swift */,
+				G_AUTH_VIEWS,
+				G_PASSENGER_VIEWS,
+				G_BOOKING_VIEWS,
+				G_TRACKING_VIEWS,
+				G_SOS_VIEWS,
+				G_RATING_VIEWS,
+				G_PAYMENT_VIEWS,
+				G_PROFILE_VIEWS,
+				G_COMPONENT_VIEWS,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G_AUTH_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000022 /* LoginView.swift */,
+				F200000023 /* RegisterView.swift */,
+				F200000024 /* OTPView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		G_PASSENGER_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000025 /* PassengerHomeView.swift */,
+				F200000034 /* HistoryView.swift */,
+			);
+			path = Passenger;
+			sourceTree = "<group>";
+		};
+		G_BOOKING_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000026 /* SeatSelectionView.swift */,
+				F200000027 /* BookingConfirmationView.swift */,
+				F200000028 /* MyBookingsView.swift */,
+				F200000029 /* BookingDetailView.swift */,
+			);
+			path = Booking;
+			sourceTree = "<group>";
+		};
+		G_TRACKING_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000030 /* TrackingView.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
+		G_SOS_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000031 /* SOSView.swift */,
+			);
+			path = SOS;
+			sourceTree = "<group>";
+		};
+		G_RATING_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000032 /* RatingView.swift */,
+			);
+			path = Ratings;
+			sourceTree = "<group>";
+		};
+		G_PAYMENT_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000033 /* PaymentView.swift */,
+			);
+			path = Payments;
+			sourceTree = "<group>";
+		};
+		G_PROFILE_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000035 /* ProfileView.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		G_COMPONENT_VIEWS = {
+			isa = PBXGroup;
+			children = (
+				F200000036 /* TwendeButton.swift */,
+				F200000037 /* StatusBadge.swift */,
+				F200000038 /* SeatGridView.swift */,
+				F200000039 /* EmptyStateView.swift */,
+				F200000040 /* LoadingView.swift */,
+				F200000041 /* ErrorView.swift */,
+				F200000042 /* PaymentMethodPicker.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		G_UTILITIES = {
+			isa = PBXGroup;
+			children = (
+				F200000005 /* TokenStore.swift */,
+				F200000006 /* Theme.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		G_RESOURCES = {
+			isa = PBXGroup;
+			children = (
+				F200000043 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		TWENDE_TARGET = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = TARGET_BUILD_CONFIG_LIST;
+			buildPhases = (
+				F500000001 /* Sources */,
+				F400000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Twende;
+			productName = Twende;
+			productReference = F300000001 /* Twende.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PROJECT = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+			};
+			buildConfigurationList = PROJECT_BUILD_CONFIG_LIST;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ROOT_GROUP;
+			productRefGroup = PRODUCTS_GROUP;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				TWENDE_TARGET,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F500000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F100000001 /* TwendeApp.swift in Sources */,
+				F100000002 /* AppState.swift in Sources */,
+				F100000003 /* Router.swift in Sources */,
+				F100000004 /* Models.swift in Sources */,
+				F100000005 /* TokenStore.swift in Sources */,
+				F100000006 /* Theme.swift in Sources */,
+				F100000007 /* APIService.swift in Sources */,
+				F100000008 /* AuthRepository.swift in Sources */,
+				F100000009 /* JourneyRepository.swift in Sources */,
+				F100000010 /* BookingRepository.swift in Sources */,
+				F100000011 /* SOSRepository.swift in Sources */,
+				F100000012 /* RatingRepository.swift in Sources */,
+				F100000013 /* AuthViewModel.swift in Sources */,
+				F100000014 /* SearchViewModel.swift in Sources */,
+				F100000015 /* BookingViewModel.swift in Sources */,
+				F100000016 /* TrackingViewModel.swift in Sources */,
+				F100000017 /* HistoryViewModel.swift in Sources */,
+				F100000018 /* SOSViewModel.swift in Sources */,
+				F100000019 /* RatingViewModel.swift in Sources */,
+				F100000020 /* PaymentViewModel.swift in Sources */,
+				F100000021 /* RootView.swift in Sources */,
+				F100000022 /* LoginView.swift in Sources */,
+				F100000023 /* RegisterView.swift in Sources */,
+				F100000024 /* OTPView.swift in Sources */,
+				F100000025 /* PassengerHomeView.swift in Sources */,
+				F100000026 /* SeatSelectionView.swift in Sources */,
+				F100000027 /* BookingConfirmationView.swift in Sources */,
+				F100000028 /* MyBookingsView.swift in Sources */,
+				F100000029 /* BookingDetailView.swift in Sources */,
+				F100000030 /* TrackingView.swift in Sources */,
+				F100000031 /* SOSView.swift in Sources */,
+				F100000032 /* RatingView.swift in Sources */,
+				F100000033 /* PaymentView.swift in Sources */,
+				F100000034 /* HistoryView.swift in Sources */,
+				F100000035 /* ProfileView.swift in Sources */,
+				F100000036 /* TwendeButton.swift in Sources */,
+				F100000037 /* StatusBadge.swift in Sources */,
+				F100000038 /* SeatGridView.swift in Sources */,
+				F100000039 /* EmptyStateView.swift in Sources */,
+				F100000040 /* LoadingView.swift in Sources */,
+				F100000041 /* ErrorView.swift in Sources */,
+				F100000042 /* PaymentMethodPicker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DEBUG_PROJECT_CONFIG = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		RELEASE_PROJECT_CONFIG = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DEBUG_TARGET_CONFIG = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Twende/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Twende;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.twende.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		RELEASE_TARGET_CONFIG = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Twende/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Twende;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.twende.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		PROJECT_BUILD_CONFIG_LIST = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEBUG_PROJECT_CONFIG,
+				RELEASE_PROJECT_CONFIG,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		TARGET_BUILD_CONFIG_LIST = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DEBUG_TARGET_CONFIG,
+				RELEASE_TARGET_CONFIG,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = PROJECT;
+}

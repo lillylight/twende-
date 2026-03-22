@@ -4,6 +4,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { generateBookingReference } from '@/lib/utils';
 import { addPaymentJob } from '@/lib/queues/payments.queue';
 import { type PaymentProvider } from '@/lib/payments';
+import { generateBookingQR } from '@/lib/qrcode';
+import { createAuditLog, AuditAction } from '@/lib/audit';
 
 export async function GET(request: NextRequest) {
   try {
@@ -211,6 +213,8 @@ export async function POST(request: NextRequest) {
         throw new Error('NO_SEATS_AVAILABLE');
       }
 
+      const qrCode = generateBookingQR(reference, journeyId);
+
       return tx.booking.create({
         data: {
           journeyId,
@@ -224,8 +228,27 @@ export async function POST(request: NextRequest) {
           bookedVia: 'APP',
           passengerPhone: phone,
           passengerName: passengerName || null,
+          qrCode,
         },
       });
+    });
+
+    // Audit log: booking created
+    await createAuditLog({
+      userId: user.userId,
+      userRole: user.role,
+      action: AuditAction.BOOKING_CREATE,
+      resource: 'booking',
+      resourceId: booking.id,
+      details: {
+        reference,
+        journeyId,
+        seatNumber: seatNumber ?? null,
+        paymentMethod,
+        price: Number(journey.price),
+        route: `${journey.route.fromCity} -> ${journey.route.toCity}`,
+      },
+      request,
     });
 
     // Queue payment processing

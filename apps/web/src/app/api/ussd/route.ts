@@ -3,6 +3,8 @@ import { getSession, setSession, type USSDSession } from '@/lib/ussd/session';
 import { handle as handleBooking } from '@/lib/ussd/booking-menu';
 import { handle as handleTracking } from '@/lib/ussd/tracking-menu';
 import { handle as handleSOS } from '@/lib/ussd/sos-menu';
+import { t } from '@/lib/i18n';
+import { detectLanguage } from '@/lib/i18n';
 
 export async function POST(request: NextRequest) {
   try {
@@ -27,22 +29,24 @@ export async function POST(request: NextRequest) {
     let session = await getSession(sessionId);
 
     if (!session) {
+      const defaultLang = detectLanguage(phoneNumber);
       session = {
         sessionId,
         phoneNumber,
         currentMenu: 'main',
         step: 0,
-        data: {},
+        data: { language: defaultLang },
         createdAt: new Date().toISOString(),
       };
       await setSession(sessionId, session);
     }
 
+    const lang = session.data.language ?? 'en';
     let response: string;
 
     // Main menu (no inputs yet or first input)
     if (session.currentMenu === 'main' && inputs.length === 0) {
-      response = `CON Welcome to ZedPulse\nSafe Bus Travel in Zambia\n\n1. Book a Ticket\n2. Track My Bus\n3. SOS Emergency`;
+      response = `CON ${t('welcome', lang)}`;
     } else if (session.currentMenu === 'main' && inputs.length === 1) {
       const choice = parseInt(inputs[0], 10);
 
@@ -60,16 +64,49 @@ export async function POST(request: NextRequest) {
         response = await handleTracking(inputs, session, sessionId);
       } else if (choice === 3) {
         // SOS - immediate action
-        response = await handleSOS(phoneNumber, sessionId);
+        response = await handleSOS(phoneNumber, sessionId, lang);
+      } else if (choice === 4) {
+        // My Bookings - placeholder
+        session.currentMenu = 'my_bookings';
+        session.step = 0;
+        await setSession(sessionId, session);
+        response = `END ${t('my_bookings', lang, { bookingList: 'No recent bookings.' })}`;
+      } else if (choice === 5) {
+        // Report Driver - placeholder
+        session.currentMenu = 'report';
+        session.step = 0;
+        await setSession(sessionId, session);
+        response = `END ${t('report_driver', lang)}`;
+      } else if (choice === 6) {
+        // Language selection
+        session.currentMenu = 'language';
+        session.step = 0;
+        await setSession(sessionId, session);
+        response = `CON ${t('select_language', lang)}`;
       } else {
-        response = 'END Invalid option. Please dial again and select 1, 2, or 3.';
+        response = `END ${t('invalid_option', lang)}`;
+      }
+    } else if (session.currentMenu === 'language') {
+      // Handle language selection
+      const input = parseInt(inputs[inputs.length - 1], 10);
+      const langMap: Record<number, string> = { 1: 'en', 2: 'bem', 3: 'nya' };
+      const selectedLang = langMap[input];
+
+      if (selectedLang) {
+        session.data.language = selectedLang;
+        session.currentMenu = 'main';
+        session.step = 0;
+        await setSession(sessionId, session);
+        response = `CON ${t('language_set', selectedLang)}\n\n${t('welcome', selectedLang)}`;
+      } else {
+        response = `END ${t('invalid_input', lang)}`;
       }
     } else if (session.currentMenu === 'booking') {
       response = await handleBooking(inputs, session, sessionId);
     } else if (session.currentMenu === 'tracking') {
       response = await handleTracking(inputs, session, sessionId);
     } else {
-      response = 'END An error occurred. Please try again.';
+      response = `END ${t('error_occurred', lang)}`;
     }
 
     // Africa's Talking expects text/plain with CON (continue) or END (terminate)

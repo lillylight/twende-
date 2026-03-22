@@ -3,13 +3,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { TrackingMap, TrackingPosition, TrackingWaypoint } from '@/components/tracking-map';
-import { SpeedGauge } from '@/components/speed-gauge';
+// SpeedGauge available for future use
 import { SOSButton } from '@/components/sos-button';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 import {
-  MapPin,
   Clock,
   Gauge,
   Share2,
@@ -17,7 +16,6 @@ import {
   AlertTriangle,
   Bus,
   Navigation,
-  Copy,
   XCircle,
 } from 'lucide-react';
 
@@ -338,7 +336,7 @@ export default function PublicTrackingPage() {
           {/* Powered by branding */}
           <div className="mt-4 flex items-center justify-center gap-1.5">
             <span className="text-xs text-gray-500">Powered by</span>
-            <span className="text-xs font-bold text-[#0F6E56]">ZedPulse</span>
+            <span className="text-xs font-bold text-[#0F6E56]">Twende</span>
           </div>
         </div>
       </div>
@@ -352,7 +350,7 @@ function PoweredByBranding() {
   return (
     <div className="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-1.5">
       <span className="text-xs text-gray-500">Powered by</span>
-      <span className="text-xs font-bold text-[#0F6E56]">ZedPulse</span>
+      <span className="text-xs font-bold text-[#0F6E56]">Twende</span>
     </div>
   );
 }
