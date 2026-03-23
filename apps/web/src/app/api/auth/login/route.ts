@@ -79,10 +79,10 @@ export async function POST(request: NextRequest) {
           user: {
             id: user.id,
             phone: user.phone,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            name: user.name,
+            email: user.email,
             role: user.role,
-            isVerified: user.isVerified,
+            isActive: user.isActive,
             createdAt: user.createdAt,
           },
           tokens,

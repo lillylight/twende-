@@ -8,15 +8,16 @@ import { createAuditLog, AuditAction } from '@/lib/audit';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { phone, firstName, lastName, password, role } = body;
+    const { phone, name, firstName, lastName, password, role } = body;
+    const fullName = name || (firstName && lastName ? `${firstName} ${lastName}` : null);
 
-    if (!phone || !firstName || !lastName || !password) {
+    if (!phone || !fullName || !password) {
       return NextResponse.json(
         {
           success: false,
           error: {
             code: 'VALIDATION_ERROR',
-            message: 'Phone, firstName, lastName, and password are required.',
+            message: 'Phone, name, and password are required.',
           },
           timestamp: new Date().toISOString(),
         },
@@ -45,13 +46,10 @@ export async function POST(request: NextRequest) {
     const user = await prisma.user.create({
       data: {
         phone,
-        firstName,
-        lastName,
-        name: `${firstName} ${lastName}`,
+        name: fullName,
         passwordHash,
         role: userRole,
         isActive: true,
-        isVerified: false,
       },
     });
 
@@ -81,10 +79,9 @@ export async function POST(request: NextRequest) {
           user: {
             id: user.id,
             phone: user.phone,
-            firstName: user.firstName,
-            lastName: user.lastName,
+            name: user.name,
             role: user.role,
-            isVerified: user.isVerified,
+            isActive: user.isActive,
             createdAt: user.createdAt,
           },
           tokens,

@@ -1,5 +1,6 @@
 import type { NextConfig } from 'next';
 import path from 'path';
+import fs from 'fs';
 import { type Configuration } from 'webpack';
 
 const nextConfig: NextConfig = {
@@ -14,34 +15,37 @@ const nextConfig: NextConfig = {
 
   webpack: (config: Configuration, { isServer }: { isServer: boolean }) => {
     if (!isServer) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const CopyPlugin = require('copy-webpack-plugin');
-
       const cesiumSource = path.resolve(__dirname, 'node_modules', 'cesium', 'Build', 'Cesium');
 
-      config.plugins = config.plugins ?? [];
-      config.plugins.push(
-        new CopyPlugin({
-          patterns: [
-            {
-              from: path.join(cesiumSource, 'Workers'),
-              to: path.resolve(__dirname, 'public', 'cesium', 'Workers'),
-            },
-            {
-              from: path.join(cesiumSource, 'ThirdParty'),
-              to: path.resolve(__dirname, 'public', 'cesium', 'ThirdParty'),
-            },
-            {
-              from: path.join(cesiumSource, 'Assets'),
-              to: path.resolve(__dirname, 'public', 'cesium', 'Assets'),
-            },
-            {
-              from: path.join(cesiumSource, 'Widgets'),
-              to: path.resolve(__dirname, 'public', 'cesium', 'Widgets'),
-            },
-          ],
-        })
-      );
+      // Only copy Cesium assets if Cesium is actually installed
+      if (fs.existsSync(cesiumSource)) {
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const CopyPlugin = require('copy-webpack-plugin');
+
+        config.plugins = config.plugins ?? [];
+        config.plugins.push(
+          new CopyPlugin({
+            patterns: [
+              {
+                from: path.join(cesiumSource, 'Workers'),
+                to: path.resolve(__dirname, 'public', 'cesium', 'Workers'),
+              },
+              {
+                from: path.join(cesiumSource, 'ThirdParty'),
+                to: path.resolve(__dirname, 'public', 'cesium', 'ThirdParty'),
+              },
+              {
+                from: path.join(cesiumSource, 'Assets'),
+                to: path.resolve(__dirname, 'public', 'cesium', 'Assets'),
+              },
+              {
+                from: path.join(cesiumSource, 'Widgets'),
+                to: path.resolve(__dirname, 'public', 'cesium', 'Widgets'),
+              },
+            ],
+          })
+        );
+      }
 
       config.resolve = config.resolve ?? {};
       config.resolve.fallback = {

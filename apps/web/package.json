@@ -21,6 +21,7 @@
     "bullmq": "^5.34.8",
     "cesium": "^1.125.0",
     "clsx": "^2.1.1",
+    "copy-webpack-plugin": "^14.0.0",
     "date-fns": "^4.1.0",
     "express-rate-limit": "^7.5.0",
     "ioredis": "^5.4.2",
